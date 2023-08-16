@@ -1,0 +1,48 @@
+<div id="output"></div>
+
+<script>
+
+    navigator.getBattery().then((battery) => {
+        function updateAllBatteryInfo() {
+            document.getElementById('output').innerHTML = '';
+          updateChargeInfo();
+          updateLevelInfo();
+          updateChargingInfo();
+          updateDischargingInfo();
+        }
+        updateAllBatteryInfo();
+      
+        battery.addEventListener("chargingchange", () => {
+            updateAllBatteryInfo();
+        });
+        function updateChargeInfo() {
+          document.getElementById('output').innerHTML += `Battery charging? ${battery.charging ? "Yes" : "No"} </br>`;
+        }
+      
+        battery.addEventListener("levelchange", () => {
+          updateLevelInfo();
+        });
+        function updateLevelInfo() {
+          document.getElementById('output').innerHTML += `Battery level: ${battery.level * 100}% </br>`;
+        }
+      
+        battery.addEventListener("chargingtimechange", () => {
+          updateChargingInfo();
+        });
+        function updateChargingInfo() {
+          console.log(`Battery charging time: ${battery.chargingTime} seconds`);
+        }
+      
+        battery.addEventListener("dischargingtimechange", () => {
+          updateDischargingInfo();
+        });
+        function updateDischargingInfo() {
+          console.log(`Battery discharging time: ${battery.dischargingTime} seconds`);
+        }
+      });
+
+
+
+
+
+</script>
